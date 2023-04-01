@@ -2,6 +2,7 @@ import pygame
 
 from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
 from dino_runner.components.dinosaur import Dinosaur
+from dino_runner.components.cloud import Cloud
 
 
 class Game:
@@ -15,7 +16,10 @@ class Game:
         self.game_speed = 20
         self.x_pos_bg = 0
         self.y_pos_bg = 380
+        self.points = 0
         self.player = Dinosaur()
+        self.cloud = Cloud(self.game_speed)
+        self.font = pygame.font.SysFont("gillsans", 20)
 
     def run(self):
         # Game loop: events - update - draw
@@ -32,13 +36,19 @@ class Game:
                 self.playing = False
 
     def update(self):
-        pass
+        user_input = pygame.key.get_pressed()
+        self.cloud.update()
+        self.player.update(user_input)
 
     def draw(self):
         self.clock.tick(FPS)
         self.screen.fill((255, 255, 255))
         self.draw_background()
+
         self.player.draw(self.screen)
+        self.cloud.draw(self.screen)
+
+        self.score()
         pygame.display.update()
         pygame.display.flip()
 
@@ -50,3 +60,14 @@ class Game:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
         self.x_pos_bg -= self.game_speed
+
+    def score(self):
+        self.points += 1
+        if self.points % 100 == 0:
+            self.game_speed += 1
+
+        score = self.font.render(
+            "Score: " + str(self.points), True, (0, 0, 255))
+        score_rect = score.get_rect()
+        score_rect.center = (900, 40)
+        self.screen.blit(score, score_rect)
