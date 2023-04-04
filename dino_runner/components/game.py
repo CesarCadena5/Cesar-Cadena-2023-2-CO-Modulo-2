@@ -45,7 +45,11 @@ class Game:
 
     def draw(self):
         self.clock.tick(FPS)
-        self.screen.fill((255, 255, 255))
+        if self.points % 1000 > 0 and self.points % 1000 < 499:
+            self.screen.fill((255, 255, 255))
+        else:
+            self.screen.fill((128, 128, 128))
+
         self.draw_background()
 
         self.player.draw(self.screen)
