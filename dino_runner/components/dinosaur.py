@@ -1,4 +1,5 @@
 import pygame
+import sys
 from pygame.sprite import Sprite
 from dino_runner.utils.constants import RUNNING
 from dino_runner.utils.constants import JUMPING
@@ -8,6 +9,9 @@ from dino_runner.utils.constants import DUCKING
 class Dinosaur(Sprite):
     X_POS = 80
     Y_POS = 310
+    # 342
+    # 344
+    # 346
     Y_POS_DUCK = 340
     JUMP_SPEED = 8.5
 
@@ -31,7 +35,7 @@ class Dinosaur(Sprite):
         elif self.dino_duck:
             self.duck()
 
-        if user_input[pygame.K_UP] and not self.dino_jump:
+        if user_input[pygame.K_UP]:
             self.dino_duck = False
             self.dino_run = False
             self.dino_jump = True
@@ -46,6 +50,7 @@ class Dinosaur(Sprite):
             self.step_index = 0
 
     def run(self):
+        # Cada 5 iteraciones, usa la imagen que muestra un pie abajo, y luego otras 5 iteraciones con la otra imagen del pie contrario
         self.image = RUNNING[0] if self.step_index < 5 else RUNNING[1]
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = self.X_POS
@@ -54,6 +59,7 @@ class Dinosaur(Sprite):
 
     def jump(self):
         self.image = JUMPING
+        # Al multiplicar self.jump_speed * 4 queda 8.5 * 4 en negativo, y el negativo es para pintar el salto hacia arriba
         self.dino_rect.y -= self.jump_speed * 4
         self.jump_speed -= 0.8
 
