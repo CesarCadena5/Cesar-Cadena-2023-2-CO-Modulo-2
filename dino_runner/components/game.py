@@ -28,6 +28,7 @@ class Game:
         self.running = False
         self.death_count = 0
         self.score = 0
+        self.scores = []
 
     def execute(self):
         self.running = True
@@ -105,11 +106,29 @@ class Game:
         if self.death_count == 0:
             self.menu.draw(self.screen)
         else:
-            self.menu.update_message('new message')
+            self.menu.update_message('Game over. Press any key to start...')
             self.menu.draw(self.screen)
 
         self.screen.blit(ICON, (half_screen_width -
                          50, half_screen_height - 140))
+
+        font = pygame.font.Font(FONT_STYLE, 30)
+        text = font.render(f'Your Score: {self.score}', True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = (half_screen_width, half_screen_height + 30)
+        self.screen.blit(text, text_rect)
+
+        text = font.render(
+            f'Highest Score: {0 if len(self.scores) == 0 else max(self.scores)}', True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = (half_screen_width, half_screen_height + 60)
+        self.screen.blit(text, text_rect)
+
+        text = font.render(
+            f'Total Deaths: {self.death_count}', True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = (half_screen_width, half_screen_height + 90)
+        self.screen.blit(text, text_rect)
         self.menu.update(self)
 
     def update_score(self):
