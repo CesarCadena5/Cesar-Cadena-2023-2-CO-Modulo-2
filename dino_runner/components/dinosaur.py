@@ -9,16 +9,12 @@ from dino_runner.utils.constants import DUCKING
 class Dinosaur(Sprite):
     X_POS = 80
     Y_POS = 310
-    # 342
-    # 344
-    # 346
     Y_POS_DUCK = 340
     JUMP_SPEED = 8.5
 
     def __init__(self):
         self.image = RUNNING[0]
         self.dino_rect = self.image.get_rect()
-        # self.dino_rect.move_ip(80, 310)
         self.dino_rect.x = self.X_POS
         self.dino_rect.y = self.Y_POS
         self.step_index = 0
@@ -77,3 +73,14 @@ class Dinosaur(Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
+
+    def reset_dinosaur(self):
+        self.image = RUNNING[0]
+        self.dino_rect = self.image.get_rect()
+        self.dino_rect.x = self.X_POS
+        self.dino_rect.y = self.Y_POS
+        self.step_index = 0
+        self.dino_run = True
+        self.dino_jump = False
+        self.dino_duck = False
+        self.jump_speed = self.JUMP_SPEED

@@ -24,8 +24,12 @@ class Obstacle(Sprite):
         if self.bird_or_cactus == '':
             screen.blit(self.image[self.obstacle_type], self.rect)
         elif self.bird_or_cactus == 'bird':
-            if self.index >= 9:
+            if self.index > 9:
                 self.index = 0
 
-            screen.blit(self.image[self.index//5], self.rect)
+            image = self.image[0] if self.index < 5 else self.image[1]
+            screen.blit(image, self.rect)
             self.index += 1
+
+            # screen.blit(self.image[self.index//5], self.rect)
+            # screen.blit(self.image[0] if self.index < 5 else self.image[1], self.rect)
