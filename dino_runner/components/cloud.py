@@ -5,7 +5,7 @@ from dino_runner.utils.constants import SCREEN_WIDTH
 
 class Cloud:
 
-    def __init__(self, game_speed):
+    def __init__(self):
         # Se extrae la imagen
         self.image = CLOUD
         # Se extrae el rectangulo de la imagen
@@ -15,7 +15,7 @@ class Cloud:
         self.cloud_rect.x = SCREEN_WIDTH + random.randint(100, 300)
         self.cloud_rect.y = random.randint(50, 100)
         # Velocidad a la que va el juego
-        self.game_speed = game_speed
+        self.game_speed = 20
 
     def update(self):
         self.cloud_rect.x -= self.game_speed
