@@ -12,6 +12,7 @@ class PowerUp(Sprite):
         self.rect.x = SCREEN_WIDTH
         self.rect.y = random.randint(125, 180)
         self.start_time = 0
+        self.counted = False
 
     def update(self, game_speed, power_ups):
         self.rect.x -= game_speed
@@ -21,4 +22,7 @@ class PowerUp(Sprite):
             power_ups.pop()
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        if self.type == 'heart':
+            screen.blit(self.image, (self.rect.x, 200))
+        else:
+            screen.blit(self.image, self.rect)

@@ -1,6 +1,6 @@
 import pygame
 # 1:12
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
+from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE, HEART
 from dino_runner.components.dinosaur import Dinosaur
 from dino_runner.components.cloud import Cloud
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
@@ -78,6 +78,7 @@ class Game:
         self.score.draw(self.screen)
         self.power_up_manager.draw(self.screen)
         self.draw_power_up_time()
+        self.draw_heart()
         self.cloud.draw(self.screen)
 
         # Actualiza la pantalla
@@ -148,3 +149,10 @@ class Game:
             else:
                 self.player.has_power_up = False
                 self.player.type = DEFAULT_TYPE
+
+    def draw_heart(self):
+        if self.player.heart > 0:
+            pos_x = 40
+            for _ in range(self.player.heart):
+                pos_x += 30
+                self.screen.blit(HEART, (pos_x, 20))
